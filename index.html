@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- bootstrap setup -->
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">   
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+
+	<script type="text/javascript" src="quotes.js"></script>
+	<script type="text/javascript">
+		/*
+		const QUOTE_BANK = [
+			{
+				quote: "Be yourself; everyone else is already taken.",
+				author: "Oscar Wilde"
+			},
+			{
+				quote: "Two things are infinite: the universe and human stupidity; and I'm not sure about the universe.",
+				author: "Albert Einstein"
+			},
+			{
+				quote: "Be who you are and say what you feel, because those who mind don't matter, and those who matter don't mind.",
+				author: "Bernard M. Baruch"
+			},
+			{
+				quote: "If you tell the truth, you don't have to remember anything.",
+				author: "Mark Twain"
+			},
+			{
+				quote: "The fool doth think he is wise, but the wise man knows himself to be a fool.",
+				author: "William Shakespeare"
+			},
+			{
+				quote: "Life is what happens to us while we are making other plans.",
+				author: "Allen Saunders"
+			}
+		];
+		*/
+
+		window.onload = init;
+		function init() {
+			generateQuote();
+		}
+
+		function generateQuote() {
+			let quoteLength = QUOTE_BANK.length;
+			let randomIndex = Math.floor(Math.random() * quoteLength);
+			let randomQuoteData = QUOTE_BANK[randomIndex];
+
+			document.getElementById("text").innerText = randomQuoteData.quote;
+			document.getElementById("author").innerText = randomQuoteData.author;
+
+			let quoteInApiFormat = randomQuoteData.quote.replace(/ /g, '%20').replace(/'/g, '%E2%80%99').replace(/,/g, '%2C');
+			let authorInApiFormat = randomQuoteData.author.replace(/ /g, '%20')
+
+			let twitterLink = "https://twitter.com/intent/tweet?text=%22";
+			// Add the Quote
+			twitterLink += quoteInApiFormat + "%22%20";
+			// Add the Author
+			twitterLink += "-" + authorInApiFormat
+			document.getElementById("tweet-quote").href = twitterLink;
+		}
+	</script>
+
+	<style type="text/css">
+		* {
+			text-align: center;
+		}
+	</style>
+
+	
+	<title>Random Quote Generator</title>
+</head>
+<body class="bg-dark">
+	<div class="container bg-">
+		<div class="row py-5">
+			<div class="col-md-8 offset-md-2">
+				<wrapper id="quote-box">
+					<div class="card">
+						<div class="card-header">
+							Random Quote Machine
+						</div>
+					    <div class="card-body">
+					    	<h5 class="card-title"><div id="text"></div></h5>
+					    	<p class="card-text"><div id="author"></div></p>
+					    	<button class="btn btn-success" id="new-quote" onclick="generateQuote()">New Quote</button>
+					    	<a id="tweet-quote" target="_blank" href="#" class="btn btn-primary">Tweet Quote</a>
+					 	</div>
+					</div>
+				</wrapper>
+			</div>
+		</div>
+	</div>
+	<script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
+</body>
+</html>
